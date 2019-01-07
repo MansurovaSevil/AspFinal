@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AspFinalNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Icon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Places" Relationship="Self.FK_Place_Category" FromRole="Category" ToRole="Place" />
+  </EntityType>
+  <EntityType Name="CategoryService">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="ServiceId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Service" Relationship="Self.FK_CategoryService_Service" FromRole="CategoryService" ToRole="Service" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Photo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Places" Relationship="Self.FK_Place_City" FromRole="City" ToRole="Place" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlaceId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Rating" Type="Int16" Nullable="false" />
+    <Property Name="Text" Type="String" MaxLength="140" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Comment_Users" FromRole="Comment" ToRole="Users" />
+    <NavigationProperty Name="CommentPhotoes" Relationship="Self.FK_CommentPhoto_Comment" FromRole="Comment" ToRole="CommentPhoto" />
+    <NavigationProperty Name="Reactions" Relationship="Self.FK_Reaction_Comment" FromRole="Comment" ToRole="Reaction" />
+  </EntityType>
+  <EntityType Name="CommentPhoto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentId" Type="Int32" Nullable="false" />
+    <Property Name="Photo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_CommentPhoto_Comment" FromRole="CommentPhoto" ToRole="Comment" />
+  </EntityType>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlaceId" Type="Int32" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Place">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Slogan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Place_Category" FromRole="Place" ToRole="Category" />
+    <NavigationProperty Name="City" Relationship="Self.FK_Place_City" FromRole="Place" ToRole="City" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Place_Users" FromRole="Place" ToRole="Users" />
+    <NavigationProperty Name="PlaceServices" Relationship="Self.FK_PlaceService_Place" FromRole="Place" ToRole="PlaceService" />
+    <NavigationProperty Name="WorkHours" Relationship="Self.FK_WorkHour_WorkHour" FromRole="Place" ToRole="WorkHour" />
+  </EntityType>
+  <EntityType Name="PlaceService">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlaceId" Type="Int32" Nullable="false" />
+    <Property Name="SeviceId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Place" Relationship="Self.FK_PlaceService_Place" FromRole="PlaceService" ToRole="Place" />
+    <NavigationProperty Name="Service" Relationship="Self.FK_PlaceService_Service" FromRole="PlaceService" ToRole="Service" />
+  </EntityType>
+  <EntityType Name="Reaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Comment" Relationship="Self.FK_Reaction_Comment" FromRole="Reaction" ToRole="Comment" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Reaction_Users" FromRole="Reaction" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CategoryServices" Relationship="Self.FK_CategoryService_Service" FromRole="Service" ToRole="CategoryService" />
+    <NavigationProperty Name="PlaceServices" Relationship="Self.FK_PlaceService_Service" FromRole="Service" ToRole="PlaceService" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Users" FromRole="Users" ToRole="Comment" />
+    <NavigationProperty Name="Places" Relationship="Self.FK_Place_Users" FromRole="Users" ToRole="Place" />
+    <NavigationProperty Name="Reactions" Relationship="Self.FK_Reaction_Users" FromRole="Users" ToRole="Reaction" />
+  </EntityType>
+  <EntityType Name="WorkHour">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlaceId" Type="Int32" Nullable="false" />
+    <Property Name="Weekno" Type="Int32" Nullable="false" />
+    <Property Name="OpenHour" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="CloseHour" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Place" Relationship="Self.FK_WorkHour_WorkHour" FromRole="WorkHour" ToRole="Place" />
+  </EntityType>
+  <Association Name="FK_Place_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Place" Type="Self.Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CategoryService_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="1" />
+    <End Role="CategoryService" Type="Self.CategoryService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CategoryService">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Place_City">
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="Place" Type="Self.Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommentPhoto_Comment">
+    <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
+    <End Role="CommentPhoto" Type="Self.CommentPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommentPhoto">
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reaction_Comment">
+    <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
+    <End Role="Reaction" Type="Self.Reaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reaction">
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Place_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Place" Type="Self.Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlaceService_Place">
+    <End Role="Place" Type="Self.Place" Multiplicity="1" />
+    <End Role="PlaceService" Type="Self.PlaceService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlaceService">
+        <PropertyRef Name="PlaceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkHour_WorkHour">
+    <End Role="Place" Type="Self.Place" Multiplicity="1" />
+    <End Role="WorkHour" Type="Self.WorkHour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkHour">
+        <PropertyRef Name="PlaceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlaceService_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="1" />
+    <End Role="PlaceService" Type="Self.PlaceService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlaceService">
+        <PropertyRef Name="SeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reaction_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Reaction" Type="Self.Reaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reaction">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AspFinalNewEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="CategoryServices" EntityType="Self.CategoryService" />
+    <EntitySet Name="Cities" EntityType="Self.City" />
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="CommentPhotoes" EntityType="Self.CommentPhoto" />
+    <EntitySet Name="Photos" EntityType="Self.Photo" />
+    <EntitySet Name="Places" EntityType="Self.Place" />
+    <EntitySet Name="PlaceServices" EntityType="Self.PlaceService" />
+    <EntitySet Name="Reactions" EntityType="Self.Reaction" />
+    <EntitySet Name="Services" EntityType="Self.Service" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="WorkHours" EntityType="Self.WorkHour" />
+    <AssociationSet Name="FK_Place_Category" Association="Self.FK_Place_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Place" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CategoryService_Service" Association="Self.FK_CategoryService_Service">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="CategoryService" EntitySet="CategoryServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Place_City" Association="Self.FK_Place_City">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Place" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Users" Association="Self.FK_Comment_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommentPhoto_Comment" Association="Self.FK_CommentPhoto_Comment">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="CommentPhoto" EntitySet="CommentPhotoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reaction_Comment" Association="Self.FK_Reaction_Comment">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="Reaction" EntitySet="Reactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Place_Users" Association="Self.FK_Place_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Place" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlaceService_Place" Association="Self.FK_PlaceService_Place">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="PlaceService" EntitySet="PlaceServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkHour_WorkHour" Association="Self.FK_WorkHour_WorkHour">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="WorkHour" EntitySet="WorkHours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlaceService_Service" Association="Self.FK_PlaceService_Service">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="PlaceService" EntitySet="PlaceServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reaction_Users" Association="Self.FK_Reaction_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reaction" EntitySet="Reactions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

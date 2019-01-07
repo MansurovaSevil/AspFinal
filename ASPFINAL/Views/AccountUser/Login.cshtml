@@ -1,0 +1,57 @@
+﻿@model ASPFINAL.Models.User
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (Session["userLogged"] == null)
+                        {
+                            <div class="login">
+
+                                <form action="/AccountUser/Login" method="post">
+                                    <div class="dropdown-menu">
+
+                                        <div class="form-group" style="padding-left:2.5%">
+                                            <label for="exampleDropdownFormEmail1">Email address *</label>
+                                            <input type="text" name="Username" class="form-control" id="username" placeholder="Username" required="required">
+
+                                        </div>
+                                        <div class="form-group" style="padding-left:2.5%">
+                                            <label for="exampleDropdownFormPassword1">Password  *</label>
+                                            <input type="password" name="Password" class="form-control" id="password" placeholder="Password" required="required">
+
+
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary" value="Login" style="margin-left:2.5%">Sign in</button>
+
+
+                                        <div class="dropdown-divider" style="border: none"></div>
+                                        <a class="dropdown-item" href="@Url.Action("Register","AccountUser")">New around here? Sign up</a>
+                                    </div>
+                                    @Html.ValidationMessage("Loginerror", new { @class = "text-danger" })
+                                </form>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="txtuser">
+
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
