@@ -94,12 +94,12 @@
                                     </li>
                                     @if (Session["userLogged"] != null || Session["loguser"] != null)
                                     {
-                                        <li><a style="display:inline-block;color:white;font-size:16px" class="btn" href="AccountUser/Logout">Logout</a></li>
-                                        <li><a style="display:inline-block;color:white;font-size:16px" class="btn" href="AccountUser/Users/@AccountUserController.current_user.Id">Welcome, @AccountUserController.current_user.FullName!</a></li>
+                                        <li><a style="display:inline-block;color:black;font-size:16px" class="btn" href="AccountUser/Logout">Logout</a></li>
+                                        <li><a style="display:inline-block;color:black;font-size:16px" class="btn" href="AccountUser/Users/@AccountUserController.current_user.Id">Welcome, @AccountUserController.current_user.FullName!</a></li>
                                     }
                                     else
                                     {
-                                        <li><a style="display:inline-block;color:white;font-size:16px" class="btn" href="@Url.Action("Login","AccountUser")">Login</a></li>
+                                        <li><a style="display:inline-block;color:black;font-size:16px" class="btn" href="@Url.Action("Login","AccountUser")">Login</a></li>
                                     }
                                 </ul>
                             </div>

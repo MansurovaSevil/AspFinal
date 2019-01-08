@@ -23,27 +23,32 @@ namespace ASPFINAL.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User userrrs)
+        public ActionResult Register(string FullName, string Email, string Password)
         {
-            if (db.Users.Count(u => u.FullName == userrrs.FullName) == 1 || db.Users.Count(u => u.Email == userrrs.Email) == 1)
-            {
-                ModelState.AddModelError("SameUser", "We already have a user with such username or email in our database.");
-            }
-            else
-            {
-                userrrs.Password = Crypto.HashPassword(userrrs.Password);
-                User userr = userrrs;
-         
-                db.Users.Add(userr);
-                db.SaveChanges();
+            //if (db.Users.Count(u => u.FullName == userrrs.FullName) == 1 || db.Users.Count(u => u.Email == userrrs.Email) == 1)
+            //{
+            //    ModelState.AddModelError("SameUser", "We already have a user with such username or email in our database.");
+            //}
+            //else
+            //{
+            //userrrs.Password = Crypto.HashPassword(userrrs.Password);
+            Models.User user = new Models.User();
+            user.FullName = FullName;
+            user.Password = Crypto.HashPassword(Password);
+            user.Email = Email;
+            current_user = user;
+
+            db.Users.Add(user);
+            db.SaveChanges();
 
 
-                Session["user2"] = userr;
-                Session["loguser"] = true;
-                return RedirectToAction("Index", "Home");
-            }
+            Session["user2"] = user;
+            Session["loguser"] = true;
 
             return RedirectToAction("Index", "Home");
+            //}
+
+            //return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Login()
