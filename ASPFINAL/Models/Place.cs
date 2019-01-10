@@ -31,8 +31,6 @@ namespace ASPFINAL.Models
         public int CategoryId { get; set; }
         public int CityId { get; set; }
         public int UserId { get; set; }
-        public string Lat { get; set; }
-        public string Lng { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual City City { get; set; }

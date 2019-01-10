@@ -1,0 +1,350 @@
+﻿@model ASPFINAL.ViewModel.HomeindexView
+ 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--============================= SUBPAGE HEADER BG =============================-->
+
+<section class="subpage-bg">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="title-block title-block_subpage">
+                    <h2>Add Listing</h2>
+                    <p> <a href="index.html"> Home</a> / Add Listing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--// SUBPAGE HEADER BG -->
+<!--============================= ADD LISTING =============================-->
+
+<section class="main-block">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="listing-wrap">
+                    <form action="@Url.Action("Create","Addlisting")"method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken();
+                        <!-- General Information -->
+                        <div class="listing-title">
+                            <span class="ti-files"></span>
+                            <h4>General Information</h4>
+                            <p>Write Something General Information About Your Listing</p>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input name="Name" type="text" class="form-control add-listing_form">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Slogan</label>
+                                    <input name="Slogan" type="text" class="form-control add-listing_form">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select name="CategoryId" class="form-control add-listing_form">
+                                       @foreach (var item in Model.categories)
+                                       {
+                                        <option  value="@item.Id">@item.Name</option>
+
+                                       }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Website</label>
+                                    <input name="Website" type="text" class="form-control add-listing_form">
+                                </div>
+                            </div>
+                        </div>
+                        <!--//End General Information -->
+                        <!-- Add Location -->
+                        <div class="listing-title">
+                            <span class="ti-location-pin"></span>
+                            <h4>Add Location</h4>
+                            <p>Write Something General Information About Your Listing</p>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control add-listing_form">
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <select name="CityId" class="form-control bfh-countries" data-country="">
+                                            @foreach (var item in Model.cities)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="product-wrapper-1" class="col-md-6">
+                                <div class="form-group">
+                                    <label>Temporary Address</label>
+                                    <input type="file" class="form-control add-listing_form" name="Img">
+                                    <button style="border-radius: 100%; width: 40px; height: 40px; margin-top: 34px;padding:0" class="add_field-1 btn btn-primary"><i class="fa fa-plus"></i></button>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                               @Html.ValidationMessageFor(model => model.photos.FirstOrDefault().Image, "", new { @class = "text-danger" })
+                            </div>
+                  
+
+                       
+                           
+
+                      
+                          
+                        <!--//End Add Location -->
+                        <!-- Full Details -->
+                        <div class="listing-title">
+                            <span class="ti-location-pin"></span>
+                            <h4>Full Details</h4>
+                            <p>Write Something General Information About Your Listing</p>
+                        </div>
+
+                        
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input name="Phone" type="number" class="form-control add-listing_form">
+                                    </div>
+                                </div>
+                            </div>
+
+                       
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Description</label>
+                                    <textarea name="Desc" class="form-control add-listing_form" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//End Full Details -->
+                        <!-- Add Gallery -->
+                        <!--<div class="listing-title">
+                            <span class="ti-gallery"></span>
+                            <h4>Add Gallery</h4>
+                            <p>Write Something General Information About Your Listing</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="custom-file">
+                                    <div class="add-gallery-text">
+                                        <i class="ti-gallery"></i>
+                                        <span>Drag &amp; Drop To Change Logo</span>
+                                    </div>
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--//End Add Gallery -->
+                        <!-- Amenities -->
+                        <div class="listing-title">
+                            <span class="ti-gift"></span>
+                            <h4>Amenities</h4>
+                            <p>Write Something General Information About Your Listing</p>
+                        </div>
+                        <div class="row">
+                            @foreach (var item in Model.service)
+                            {
+
+                                <div class="col-md-4 responsive-wrap">
+                                    <div class="md-checkbox">
+                                        <input id="@item.Id" name="h" type="checkbox" value="@item.Id" runat="server" />
+                                        <label for="@item.Id">@item.Name</label>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                      
+
+                        <!--//End Amenities -->
+                        <!-- Opening Hours -->
+                        <div class="listing-title">
+                            <span class="ti-time"></span>
+                            <h4>Opening Hours</h4>
+                            <p>Write Something General Information About Your Listing</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="listing-time">Weekdays</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control">
+                                        <option selected>Opening Time</option>
+                                        <option>1 :00 AM</option>
+                                        <option>2 :00 AM</option>
+                                        <option>3 :00 AM</option>
+                                        <option>4 :00 AM</option>
+                                        <option>5 :00 AM</option>
+                                        <option>6 :00 AM</option>
+                                        <option>7 :00 AM</option>
+                                        <option>8 :00 AM</option>
+                                        <option>9 :00 AM</option>
+                                        <option>10 :00 AM</option>
+                                        <option>11 :00 AM</option>
+                                        <option>12 :00 AM</option>
+                                        <option>1 :00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control">
+                                        <option selected>Closing Time</option>
+                                        <option>1 :00 AM</option>
+                                        <option>2 :00 AM</option>
+                                        <option>3 :00 AM</option>
+                                        <option>4 :00 AM</option>
+                                        <option>5 :00 AM</option>
+                                        <option>6 :00 AM</option>
+                                        <option>7 :00 AM</option>
+                                        <option>8 :00 AM</option>
+                                        <option>9 :00 AM</option>
+                                        <option>10 :00 AM</option>
+                                        <option>11 :00 AM</option>
+                                        <option>12 :00 AM</option>
+                                        <option>1 :00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="listing-time">Weekends</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control">
+                                        <option selected>Opening Time</option>
+                                        <option>1 :00 AM</option>
+                                        <option>2 :00 AM</option>
+                                        <option>3 :00 AM</option>
+                                        <option>4 :00 AM</option>
+                                        <option>5 :00 AM</option>
+                                        <option>6 :00 AM</option>
+                                        <option>7 :00 AM</option>
+                                        <option>8 :00 AM</option>
+                                        <option>9 :00 AM</option>
+                                        <option>10 :00 AM</option>
+                                        <option>11 :00 AM</option>
+                                        <option>12 :00 AM</option>
+                                        <option>1 :00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control">
+                                        <option selected>Closing Time</option>
+                                        <option>1 :00 AM</option>
+                                        <option>2 :00 AM</option>
+                                        <option>3 :00 AM</option>
+                                        <option>4 :00 AM</option>
+                                        <option>5 :00 AM</option>
+                                        <option>6 :00 AM</option>
+                                        <option>7 :00 AM</option>
+                                        <option>8 :00 AM</option>
+                                        <option>9 :00 AM</option>
+                                        <option>10 :00 AM</option>
+                                        <option>11 :00 AM</option>
+                                        <option>12 :00 AM</option>
+                                        <option>1 :00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="btn-wrap btn-wrap2">
+                                    <button  type="submit" value="Create" class="btn btn-simple">SUBMIT LISTING</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//End Opening Hours -->
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--//END ADD LISTING -->
+@section scripts{
+    <script>
+        var p = document.querySelector(".form-control");
+        var p_prime = p.cloneNode(true);
+        $(document).ready(function (e) {
+            var max_fields = 10;
+            var wrapper = $("#product-wrapper-1");
+            var add_button = $(".add_field-1");
+            var y = 1;
+
+               $(add_button).click(function (e) {
+
+                e.preventDefault();
+                if (y < max_fields) {
+                    y++;
+
+                    $(wrapper).append(`
+
+<div class="form-group row ">
+
+  <p><b>Galeriya :</b></p>
+                               <input type="file" class="form-control add-listing_form" name="Img">
+
+
+
+<div class="clearfix"></div>
+<a href="#" style="color: red;" class="remove_sponsor_field-1">Sil</a>
+</div>
+<div class="clearfix"></div>
+`);
+                }
+            });
+            $(wrapper).on("click", ".remove_sponsor_field-1", function (e) {
+                e.preventDefault(); $(this).parent('div').remove(); y--;
+            })
+        });
+
+    </script>
+}
+   

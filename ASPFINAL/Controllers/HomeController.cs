@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ASPFINAL.Models;
+using ASPFINAL.ViewModel;
 
 namespace ASPFINAL.Controllers
 {
@@ -12,7 +13,14 @@ namespace ASPFINAL.Controllers
         AspFinalNewEntities db = new AspFinalNewEntities();
         public ActionResult Index()
         {
-            return View();
+            FirstPage bnm = new FirstPage();
+            bnm.categories = db.Categories.ToList();
+            bnm.places = db.Places.Take(3).ToList();
+            bnm.prohots = db.Photos.ToList();
+            bnm.cites = db.Cities.ToList();
+            bnm.blogs = db.Blogs.Take(4).ToList();
+           
+            return View(bnm);
         }
 
     }

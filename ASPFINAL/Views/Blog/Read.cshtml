@@ -1,4 +1,4 @@
-﻿
+﻿@model ASPFINAL.ViewModel.FirstPage
 @{
     ViewBag.Title = "Read";
 }
@@ -13,7 +13,7 @@
             <div class="col-md-10">
                 <div class="title-block title-block_subpage">
                     <h2>How to choose top restaurants</h2>
-                    <p> <a href="index.html"> Home</a> / Blog Detail</p>
+                    <p> <a href="@Url.Action("Index","Home")"> Home</a> / Blog Detail</p>
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
             <div class="col-md-8 responsive-wrap">
                 <div class="full-blog ">
                     <figure class="img-holder">
-                        <a href="#"><img src="~/Public/Blog/article-img2.jpg" class="img-fluid" alt="#"></a>
-                        <div class="blog-post-date">Nov 19, 2018</div>
+                        <a href="#"><img src="~/Public/Blog/@Model.blogs2.Photo" class="img-fluid" alt="#"></a>
+                        <div class="blog-post-date">@Model.blogs2.Date</div>
                     </figure>
 
                     <div class="blog-content">

@@ -1,4 +1,4 @@
-﻿
+﻿@model ASPFINAL.ViewModel.FirstPage
   <!--============================= MAIN TITLE =============================-->
 <section class="hero-wrap d-flex align-items-center home-one-hero">
     <div class="container">
@@ -59,91 +59,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div id="owl-example" class="owl-carousel">
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-home fa-3x"></i>
-                                <h4>Real Estate</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-cutlery fa-3x"></i>
-                                <h4>Restaurant</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-heart fa-3x"></i>
-                                <h4>Health & Fitness</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-bed fa-3x"></i>
-                                <h4>Hotels & Travel</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-shopping-cart fa-3x"></i>
-                                <h4>Shopping</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-futbol-o fa-3x"></i>
-                                <h4>Sports</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-truck fa-3x"></i>
-                                <h4>Transport</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-smile-o fa-3x"></i>
-                                <h4>Beauty & Spas</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-automobile fa-3x"></i>
-                                <h4>Automotive</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-book fa-3x"></i>
-                                <h4>Education</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-calendar fa-3x"></i>
-                                <h4>Event</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-music fa-3x"></i>
-                                <h4>Entertainment</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-glass fa-3x"></i>
-                                <h4>Bar & Club</h4>
-                            </div>
-                        </a>
-                        <a href="javascript:none()">
-                            <div class="item card orange">
-                                <i class="fa fa-television fa-3x"></i>
-                                <h4>Technology</h4>
-                            </div>
-                        </a>
+                    <div id="owl-example" class="owl-carousel">        
+                        @foreach (var item in Model.categories)
+                        {
+                            <a href="javascript:none()">
+                                <div class="item card orange">
+                                    <i class="@item.Icon"></i>
+                                    <h4>@item.Name</h4>
+                                </div>
+                            </a>
+                        }
+                      
+                      
                     </div>
                 </div>
             </div>
@@ -209,71 +136,32 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 card-1">
-                <div class="card">
-                    <img class="card-img-top" src="~/Public/Home/featured-img1.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Kerla Coffee House</h5>
-                        <ul class="card-rating d-flex justify-content-between align-items-center">
-                            <li class="card-rating-green">4.5</li>
-                            <li class="flex-grow-1">51 ratings</li>
-                            <li class="category"><i class="fa fa-coffee"></i> Cafe</li>
-                        </ul>
-                        <p class="card-text">
-                            Sed ut perspiciatis unde omnis iste natus error sit vento volupt
-                            accusantium doloremque laudantium, totam rem aperiam, eaque dicta sunt explicabo.
-                        </p>
-                    </div>
-                    <div class="card-bottom">
-                        <p><i class="ti-location-pin"></i>INDIA</p>
-                        <span class="open-close_green">Open Now</span>
+            @foreach (var item in Model.places)
+            {
+                <div class="col-md-4 card-1">
+                    <div class="card">
+                        <img class="card-img-top" src="~/Public/Home/@Model.prohots.Where(w=>w.PlaceId==item.Id).First().Image" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <ul class="card-rating d-flex justify-content-between align-items-center">
+                                <li class="card-rating-green">4.5</li>
+                                <li class="flex-grow-1">51 ratings</li>
+                                <li class="category"><i class="@item.Category.Icon"></i> @item.Category.Name</li>
+                            </ul>
+                            <p class="card-text">
+                               @item.Desc
+                            </p>
+                        </div>
+                        <div class="card-bottom">
+                            <p><i class="ti-location-pin"></i>@item.City.Name</p>
+                            <span class="open-close_green">Open Now</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4 card-2">
-                <div class="card">
-                    <img class="card-img-top" src="~/Public/Home/featured-img2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">LeFesto Hotel</h5>
-                        <ul class="card-rating d-flex justify-content-between align-items-center">
-                            <li class="card-rating-green">4.2</li>
-                            <li class="flex-grow-1">72 ratings</li>
-                            <li class="category"><i class="fa fa-hotel"></i> Hotel</li>
-                        </ul>
-                        <p class="card-text">
-                            Sed ut perspiciatis unde omnis iste natus error sit vento volupt
-                            accusantium doloremque laudantium, totam rem aperiam, eaque dicta sunt explicabo.
-                        </p>
-                    </div>
-                    <div class="card-bottom">
-                        <p><i class="ti-location-pin"></i>SINGAPORE</p>
-                        <span class="open-close_green">Open Now</span>
-                    </div>
-                </div>
-            </div>
+            }
 
-            <div class="col-md-4 card-2">
-                <div class="card card-last">
-                    <img class="card-img-top" src="~/Public/Home/featured-img3.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Golden Band</h5>
-                        <ul class="card-rating d-flex justify-content-between align-items-center">
-                            <li class="card-rating-yellow">3.5</li>
-                            <li class="flex-grow-1">46 ratings</li>
-                            <li class="category"><i class="fa fa-music"></i> Music</li>
-                        </ul>
-                        <p class="card-text">
-                            Sed ut perspiciatis unde omnis iste natus error sit vento volupt
-                            accusantium doloremque laudantium, totam rem aperiam, eaque dicta sunt explicabo.
-                        </p>
-                    </div>
-                    <div class="card-bottom">
-                        <p><i class="ti-location-pin"></i>UNITED STATES</p>
-                        <span>Closed Now</span>
-                    </div>
-                </div>
-            </div>
+          
 
         </div>
     </div>
@@ -416,59 +304,28 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-lg-3 article-first">
-                <div class="news-block">
-                    <img src="~/Public/Home/article-img1.jpg" alt="#" class="img-fluid">
-                    <div class="news-title">
-                        <p>Nov 18, 2018 - Restaurants</p>
-                        <a href="#">
-                            <h5>Lorem ipsum dolor sit amet consectetur adipiscing</h5>
-                        </a>
-                        <p>By <a href="#">Ruchika Megh</a></p>
+            @foreach (var item in Model.blogs)
+            {
+                <div class="col-md-6 col-lg-3 article-first">
+                    <div class="news-block">
+                        <img src="~/Public/Blog/@item.Photo" alt="#" class="img-fluid">
+                        <div class="news-title">
+                            <p>@item.Date - @item.Name</p>
+                            <a href="@Url.Action("Read","Blog",new { id=item.Id})">
+                                <h5>@item.Slogan</h5>
+                            </a>
+                            <p>By <a href="#">Ruchika Megh</a></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 article-first">
-                <div class="news-block">
-                    <img src="~/Public/Home/article-img2.jpg" alt="#" class="img-fluid">
-                    <div class="news-title">
-                        <p>Nov 18, 2018 - Travelling</p>
-                        <a href="">
-                            <h5>Lorem ipsum dolor sit amet consectetur adipiscing</h5>
-                        </a>
-                        <p>By <a href="#">Allen Martin</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 article-first">
-                <div class="news-block">
-                    <img src="~/Public/Home/article-img3.jpg" alt="#" class="img-fluid">
-                    <div class="news-title">
-                        <p>Nov 18, 2018 - Culture</p>
-                        <a href="">
-                            <h5>Lorem ipsum dolor sit amet consectetur adipiscing</h5>
-                        </a>
-                        <p>By <a href="#">David Truce</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 article-first">
-                <div class="news-block">
-                    <img src="~/Public/Home/article-img4.jpg" alt="#" class="img-fluid">
-                    <div class="news-title">
-                        <p>Nov 18, 2018 - Events</p>
-                        <a href="">
-                            <h5>Lorem ipsum dolor sit amet consectetur adipiscing</h5>
-                        </a>
-                        <p>By <a href="#">Charles S</a></p>
-                    </div>
-                </div>
-            </div>
+
+            }
+          
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="btn-wrap">
-                    <a href="blog.html" class="btn btn-simple">Visit our Blog →</a>
+                    <a href="@Url.Action("AllBlog","Blog")" class="btn btn-simple">Visit our Blog →</a>
                 </div>
             </div>
         </div>

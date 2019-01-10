@@ -15,13 +15,24 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Slogan" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Text" Type="ntext" Nullable="false" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Icon" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="CategoryService">
           <Key>
@@ -80,8 +91,6 @@
           <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="CityId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Lat" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Lng" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="PlaceService">
           <Key>
@@ -260,6 +269,7 @@
         </Association>
         <EntityContainer Name="AspFinalNewModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoryService" EntityType="Self.CategoryService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
@@ -336,8 +346,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Icon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Places" Relationship="Self.FK_Place_Category" FromRole="Category" ToRole="Place" />
         </EntityType>
         <EntityType Name="CategoryService">
@@ -362,12 +372,12 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PlaceId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Rating" Type="Int16" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="140" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="PlaceId" Nullable="false" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Int32" />
+          <Property Name="Rating" Nullable="false" Type="Int16" />
+          <Property Name="Text" Nullable="false" MaxLength="140" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Date" Nullable="false" Precision="3" Type="DateTime" />
           <NavigationProperty Name="User" Relationship="Self.FK_Comment_Users" FromRole="Comment" ToRole="Users" />
           <NavigationProperty Name="CommentPhotoes" Relationship="Self.FK_CommentPhoto_Comment" FromRole="Comment" ToRole="CommentPhoto" />
           <NavigationProperty Name="Reactions" Relationship="Self.FK_Reaction_Comment" FromRole="Comment" ToRole="Reaction" />
@@ -403,8 +413,6 @@
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Lng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Place_Category" FromRole="Place" ToRole="Category" />
           <NavigationProperty Name="City" Relationship="Self.FK_Place_City" FromRole="Place" ToRole="City" />
           <NavigationProperty Name="User" Relationship="Self.FK_Place_Users" FromRole="Place" ToRole="Users" />
@@ -425,10 +433,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CommentId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="CommentId" Nullable="false" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Int32" />
+          <Property Name="Type" Nullable="false" Type="Boolean" />
           <NavigationProperty Name="Comment" Relationship="Self.FK_Reaction_Comment" FromRole="Reaction" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="Self.FK_Reaction_Users" FromRole="Reaction" ToRole="Users" />
         </EntityType>
@@ -501,8 +509,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comment_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="Users" />
+          <End Type="Self.Comment" Multiplicity="*" Role="Comment" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -513,8 +521,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CommentPhoto_Comment">
-          <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
-          <End Role="CommentPhoto" Type="Self.CommentPhoto" Multiplicity="*" />
+          <End Type="Self.Comment" Multiplicity="1" Role="Comment" />
+          <End Type="Self.CommentPhoto" Multiplicity="*" Role="CommentPhoto" />
           <ReferentialConstraint>
             <Principal Role="Comment">
               <PropertyRef Name="Id" />
@@ -525,8 +533,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reaction_Comment">
-          <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
-          <End Role="Reaction" Type="Self.Reaction" Multiplicity="*" />
+          <End Type="Self.Comment" Multiplicity="1" Role="Comment" />
+          <End Type="Self.Reaction" Multiplicity="*" Role="Reaction" />
           <ReferentialConstraint>
             <Principal Role="Comment">
               <PropertyRef Name="Id" />
@@ -585,8 +593,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reaction_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Reaction" Type="Self.Reaction" Multiplicity="*" />
+          <End Type="Self.User" Multiplicity="1" Role="Users" />
+          <End Type="Self.Reaction" Multiplicity="*" Role="Reaction" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -623,16 +631,16 @@
             <End Role="Place" EntitySet="Places" />
           </AssociationSet>
           <AssociationSet Name="FK_Comment_Users" Association="Self.FK_Comment_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Comment" EntitySet="Comments" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Comments" Role="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_CommentPhoto_Comment" Association="Self.FK_CommentPhoto_Comment">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="CommentPhoto" EntitySet="CommentPhotoes" />
+            <End EntitySet="Comments" Role="Comment" />
+            <End EntitySet="CommentPhotoes" Role="CommentPhoto" />
           </AssociationSet>
           <AssociationSet Name="FK_Reaction_Comment" Association="Self.FK_Reaction_Comment">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="Reaction" EntitySet="Reactions" />
+            <End EntitySet="Comments" Role="Comment" />
+            <End EntitySet="Reactions" Role="Reaction" />
           </AssociationSet>
           <AssociationSet Name="FK_Place_Users" Association="Self.FK_Place_Users">
             <End Role="Users" EntitySet="Users" />
@@ -651,10 +659,22 @@
             <End Role="PlaceService" EntitySet="PlaceServices" />
           </AssociationSet>
           <AssociationSet Name="FK_Reaction_Users" Association="Self.FK_Reaction_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Reaction" EntitySet="Reactions" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Reactions" Role="Reaction" />
           </AssociationSet>
+          <EntitySet Name="Blogs" EntityType="AspFinalNewModel.Blog" />
         </EntityContainer>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Slogan" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -742,9 +762,7 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Lat" ColumnName="Lat" />
-                <ScalarProperty Name="Lng" ColumnName="Lng" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PlaceServices">
@@ -792,6 +810,18 @@
                 <ScalarProperty Name="Weekno" ColumnName="Weekno" />
                 <ScalarProperty Name="OpenHour" ColumnName="OpenHour" />
                 <ScalarProperty Name="CloseHour" ColumnName="CloseHour" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="AspFinalNewModel.Blog">
+              <MappingFragment StoreEntitySet="Blog">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

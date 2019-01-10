@@ -38,5 +38,6 @@ namespace ASPFINAL.Models
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkHour> WorkHours { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
     }
 }
