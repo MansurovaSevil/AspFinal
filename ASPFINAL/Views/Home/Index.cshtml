@@ -140,7 +140,7 @@
             {
                 <div class="col-md-4 card-1">
                     <div class="card">
-                        <img class="card-img-top" src="~/Public/Home/@Model.prohots.Where(w=>w.PlaceId==item.Id).First().Image" alt="Card image cap">
+                        <img class="card-img-top" src="~/Public/Listing/@Model.prohots.Where(w=>w.PlaceId==item.Id).First().Image" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">@item.Name</h5>
                             <ul class="card-rating d-flex justify-content-between align-items-center">
@@ -314,7 +314,7 @@
                             <a href="@Url.Action("Read","Blog",new { id=item.Id})">
                                 <h5>@item.Slogan</h5>
                             </a>
-                            <p>By <a href="#">Ruchika Megh</a></p>
+                            <p>By <a>Ruchika Megh</a></p>
                         </div>
                     </div>
                 </div>
@@ -344,7 +344,7 @@
                     <p>Add your business infront of millions and earn 3x profits from our tool</p>
                 </div>
                 <div class="btn-wrap btn-wrap2">
-                    <a href="add-listing.html" class="btn btn-simple">Add your Listing →</a>
+                    <a href="@Url.Action("index","Addlisting")" class="btn btn-simple">Add your Listing →</a>
                 </div>
             </div>
         </div>

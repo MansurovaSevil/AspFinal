@@ -626,7 +626,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\About\Index.cshtml" />
-    <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\About\Read.cshtml" />
     <Content Include="Views\Blog\Read.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />

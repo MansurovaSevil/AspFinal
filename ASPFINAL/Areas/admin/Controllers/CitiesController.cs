@@ -97,8 +97,37 @@ namespace ASPFINAL.Areas.admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Photo")] City city)
+        public ActionResult Edit([Bind(Include = "Id,Name,Photo,Img")] City city,HttpPostedFileBase Photo)
         {
+
+            if (Photo != null)
+            {
+
+                if (Extension.CheckImg(Photo, Extension.MAxfileSize))
+                {
+                    string filename;
+                    try
+                    {
+                        filename = Extension.SaveImg(Photo, "~/Public/Home");
+
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError("Img", "Dont correct");
+                        return RedirectToAction("Index");
+                    }
+
+                    Extension.Deletimg("~/Public/Home", city.Photo);
+
+                    city.Photo = filename;
+                }
+                else
+                {
+                    ModelState.AddModelError("Img", "Dont correct");
+                    return RedirectToAction("Index");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(city).State = EntityState.Modified;
@@ -128,7 +157,19 @@ namespace ASPFINAL.Areas.admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
+          
             City city = db.Cities.Find(id);
+            try
+            {
+
+                Extension.Deletimg("~/Public/Home", city.Photo);
+            }
+            catch
+            {
+
+                return RedirectToAction("index");
+            }
             db.Cities.Remove(city);
             db.SaveChanges();
             return RedirectToAction("Index");

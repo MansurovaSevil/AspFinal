@@ -25,7 +25,7 @@ namespace ASPFINAL.Controllers
         {
             FirstPage bnm = new FirstPage();
             bnm.place2 = db.Places.Find(id);
-            bnm.photos2 = db.Photos.Find(id);
+            bnm.prohots = db.Photos.ToList();
             bnm.servicplace = db.PlaceServices.ToList();
             
             return View(bnm);

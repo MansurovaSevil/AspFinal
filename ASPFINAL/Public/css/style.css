@@ -54,6 +54,7 @@ Website: https://www.stupidrommy.com
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 
 body {
+    overflow-x:hidden;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -3095,3 +3096,10 @@ select.form-control:not([size]):not([multiple]) {
   flex: 1 1 auto !important;
 }
 
+.swiper-slide {
+    display:inline-block;
+    margin:0px;
+}
+.swiper-wrapper{
+    width:5500px;
+}

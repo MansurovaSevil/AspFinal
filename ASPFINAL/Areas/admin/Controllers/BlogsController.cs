@@ -97,10 +97,38 @@ namespace ASPFINAL.Areas.admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Slogan,Date,Text,Photo")] Blog blog)
+        public ActionResult Edit([Bind(Include = "Id,Name,Slogan,Date,Text,Photo")] Blog blog,HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
+
+                if (Photo != null)
+                {
+
+                    if (Extension.CheckImg(Photo, Extension.MAxfileSize))
+                    {
+                        string filename;
+                        try
+                        {
+                            filename = Extension.SaveImg(Photo, "~/Public/Blog");
+
+                        }
+                        catch (Exception)
+                        {
+                            ModelState.AddModelError("Img", "Dont correct");
+                            return RedirectToAction("Index");
+                        }
+
+                        Extension.Deletimg("~/Public/Home", blog.Photo);
+
+                        blog.Photo = filename;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Img", "Dont correct");
+                        return RedirectToAction("Index");
+                    }
+                }
                 db.Entry(blog).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -129,6 +157,16 @@ namespace ASPFINAL.Areas.admin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Blog blog = db.Blogs.Find(id);
+            try
+            {
+
+                Extension.Deletimg("~/Public/Blog", blog.Photo);
+            }
+            catch
+            {
+
+                return RedirectToAction("index");
+            }
             db.Blogs.Remove(blog);
             db.SaveChanges();
             return RedirectToAction("Index");

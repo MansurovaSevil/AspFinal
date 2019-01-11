@@ -19,7 +19,8 @@ namespace ASPFINAL.Controllers
             bnm.prohots = db.Photos.ToList();
             bnm.cites = db.Cities.ToList();
             bnm.blogs = db.Blogs.Take(4).ToList();
-           
+            bnm.blogs = db.Blogs.Take(4).ToList();
+
             return View(bnm);
         }
 

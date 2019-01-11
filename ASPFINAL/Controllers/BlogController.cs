@@ -12,10 +12,7 @@ namespace ASPFINAL.Controllers
     {
         AspFinalNewEntities db = new AspFinalNewEntities();
         // GET: Blog
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
         public ActionResult Read(int id)
         {
             FirstPage bnm = new FirstPage();
